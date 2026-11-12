@@ -14,7 +14,7 @@ python scaffold.py
 - [x] **2.** get_batch
 - [x] **3.** BigramLanguageModel
 - [x] **4.** generate
-- [ ] **5.** train
+- [x] **5.** train
 - [ ] **6.** estimate_loss
 - [ ] **7.** average_past
 - [ ] **8.** Head
