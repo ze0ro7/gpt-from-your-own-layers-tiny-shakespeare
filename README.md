@@ -15,7 +15,7 @@ python scaffold.py
 - [x] **3.** BigramLanguageModel
 - [x] **4.** generate
 - [x] **5.** train
-- [ ] **6.** estimate_loss
+- [x] **6.** estimate_loss
 - [ ] **7.** average_past
 - [ ] **8.** Head
 - [ ] **9.** MultiHeadAttention
