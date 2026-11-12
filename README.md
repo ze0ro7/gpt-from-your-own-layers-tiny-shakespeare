@@ -12,7 +12,7 @@ python scaffold.py
 
 - [x] **1.** load_data
 - [x] **2.** get_batch
-- [ ] **3.** BigramLanguageModel
+- [x] **3.** BigramLanguageModel
 - [ ] **4.** generate
 - [ ] **5.** train
 - [ ] **6.** estimate_loss
