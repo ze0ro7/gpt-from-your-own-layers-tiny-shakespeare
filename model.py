@@ -408,6 +408,65 @@ class Block(nn.Module):
 
         return x
 
-# Step 13 - GPTLanguageModel (not yet solved)
-# TODO: implement
+# Step 13 - GPTLanguageModel
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class GPTLanguageModel(nn.Module):
+    def __init__(self, vocab_size, n_embd, n_head, n_layer, block_size, dropout=0.0):
+        """Token and position embeddings, n_layer Blocks, a final LayerNorm and a linear head."""
+        super().__init__()
+
+        # Token embeddings: convert each token ID into an n_embd-dimensional vector
+        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
+
+        # Position embeddings: represent each token's position in the sequence
+        self.position_embedding_table = nn.Embedding(block_size, n_embd)
+
+        # Transformer blocks
+        self.blocks = nn.Sequential(
+            *[
+                Block(n_embd, n_head, block_size, dropout)
+                for _ in range(n_layer)
+            ]
+        )
+
+        # Final layer normalization and language-modeling head
+        self.ln_f = LayerNorm(n_embd)
+        self.lm_head = nn.Linear(n_embd, vocab_size)
+
+    def forward(self, idx, targets=None):
+        """Return (logits of shape (B, T, vocab_size), loss or None), like the bigram model."""
+
+        B, T = idx.shape
+
+        # Token embeddings: (B, T, n_embd)
+        tok_emb = self.token_embedding_table(idx)
+
+        # Position embeddings: (T, n_embd)
+        positions = torch.arange(T, device=idx.device)
+        pos_emb = self.position_embedding_table(positions)
+
+        # Combine token and position information
+        x = tok_emb + pos_emb
+
+        # Transformer processing
+        x = self.blocks(x)
+        x = self.ln_f(x)
+
+        # Predict vocabulary logits
+        logits = self.lm_head(x)  # (B, T, vocab_size)
+
+        # Calculate loss if targets are provided
+        loss = None
+        if targets is not None:
+            B, T, C = logits.shape
+            logits_flat = logits.view(B * T, C)
+            targets_flat = targets.view(B * T)
+
+            loss = F.cross_entropy(logits_flat, targets_flat)
+
+        return logits, loss
 

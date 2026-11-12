@@ -22,7 +22,7 @@ python scaffold.py
 - [x] **10.** FeedForward
 - [x] **11.** LayerNorm
 - [x] **12.** Block
-- [ ] **13.** GPTLanguageModel
+- [x] **13.** GPTLanguageModel
 
 ---
 
