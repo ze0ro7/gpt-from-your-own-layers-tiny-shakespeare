@@ -18,7 +18,7 @@ python scaffold.py
 - [x] **6.** estimate_loss
 - [x] **7.** average_past
 - [x] **8.** Head
-- [ ] **9.** MultiHeadAttention
+- [x] **9.** MultiHeadAttention
 - [ ] **10.** FeedForward
 - [ ] **11.** LayerNorm
 - [ ] **12.** Block
