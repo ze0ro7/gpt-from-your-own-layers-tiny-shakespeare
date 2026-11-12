@@ -1,2 +1,29 @@
-# gpt-from-your-own-layers-tiny-shakespeare
-Follow Andrej Karpathy's "Let's build GPT" and write a character-level GPT in PyTorch, one layer at a time. Load Tiny Shakespeare with a character tokenizer, batch random chunks, and set up a bigram baseline with generate, train and estimate-loss functions. Then build self-attention from the masked weighted average of the past: a causal Head with…
+# GPT From Your Own Layers: Tiny Shakespeare
+
+Follow Andrej Karpathy's "Let's build GPT" and write a character-level GPT in PyTorch, one layer at a time. Load Tiny Shakespeare with a character tokenizer, batch random chunks, and set up a bigram baseline with generate, train and estimate-loss functions. Then build self-attention from the masked weighted average of the past: a causal Head with scaled dot-product attention, multi-head attention with a projection, and a feed-forward layer. Finish with your own LayerNorm, a pre-norm residual transformer Block, and the full GPT with token and position embeddings, and compare what it writes with the bigram's.
+
+## How to run
+
+```bash
+python scaffold.py
+```
+
+## Steps
+
+- [x] **1.** load_data
+- [ ] **2.** get_batch
+- [ ] **3.** BigramLanguageModel
+- [ ] **4.** generate
+- [ ] **5.** train
+- [ ] **6.** estimate_loss
+- [ ] **7.** average_past
+- [ ] **8.** Head
+- [ ] **9.** MultiHeadAttention
+- [ ] **10.** FeedForward
+- [ ] **11.** LayerNorm
+- [ ] **12.** Block
+- [ ] **13.** GPTLanguageModel
+
+---
+
+Built on Deep-ML.
