@@ -373,8 +373,40 @@ class LayerNorm(nn.Module):
         # Apply learnable scale and shift
         return self.gamma * xhat + self.beta
 
-# Step 12 - Block (not yet solved)
-# TODO: implement
+# Step 12 - Block
+import torch.nn as nn
+
+class Block(nn.Module):
+    def __init__(self, n_embd, n_head, block_size, dropout=0.0):
+        """Multi-head attention, feed-forward layer, and two layer norms."""
+        super().__init__()
+
+        # Multi-head self-attention
+        self.sa = MultiHeadAttention(
+            n_head,
+            n_embd // n_head,
+            n_embd,
+            block_size,
+            dropout
+        )
+
+        # Feed-forward network
+        self.ffwd = FeedForward(n_embd, dropout)
+
+        # Layer normalization
+        self.ln1 = LayerNorm(n_embd)
+        self.ln2 = LayerNorm(n_embd)
+
+    def forward(self, x):
+        """Pre-norm residual connections."""
+
+        # Attention + residual connection
+        x = x + self.sa(self.ln1(x))
+
+        # Feed-forward + residual connection
+        x = x + self.ffwd(self.ln2(x))
+
+        return x
 
 # Step 13 - GPTLanguageModel (not yet solved)
 # TODO: implement

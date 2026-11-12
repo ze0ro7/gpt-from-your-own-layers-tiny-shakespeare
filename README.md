@@ -21,7 +21,7 @@ python scaffold.py
 - [x] **9.** MultiHeadAttention
 - [x] **10.** FeedForward
 - [x] **11.** LayerNorm
-- [ ] **12.** Block
+- [x] **12.** Block
 - [ ] **13.** GPTLanguageModel
 
 ---
