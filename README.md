@@ -19,7 +19,7 @@ python scaffold.py
 - [x] **7.** average_past
 - [x] **8.** Head
 - [x] **9.** MultiHeadAttention
-- [ ] **10.** FeedForward
+- [x] **10.** FeedForward
 - [ ] **11.** LayerNorm
 - [ ] **12.** Block
 - [ ] **13.** GPTLanguageModel

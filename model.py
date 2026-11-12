@@ -327,8 +327,23 @@ class MultiHeadAttention(nn.Module):
 
         return out
 
-# Step 10 - FeedForward (not yet solved)
-# TODO: implement
+# Step 10 - FeedForward
+import torch.nn as nn
+
+class FeedForward(nn.Module):
+    def __init__(self, n_embd, dropout=0.0):
+        """Linear(n_embd, 4*n_embd) -> ReLU -> Linear(4*n_embd, n_embd) -> Dropout."""
+        super().__init__()
+
+        self.net = nn.Sequential(
+            nn.Linear(n_embd, 4 * n_embd),
+            nn.ReLU(),
+            nn.Linear(4 * n_embd, n_embd),
+            nn.Dropout(dropout)
+        )
+
+    def forward(self, x):
+        return self.net(x)
 
 # Step 11 - LayerNorm (not yet solved)
 # TODO: implement
