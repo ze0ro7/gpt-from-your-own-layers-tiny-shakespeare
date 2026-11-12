@@ -11,7 +11,7 @@ python scaffold.py
 ## Steps
 
 - [x] **1.** load_data
-- [ ] **2.** get_batch
+- [x] **2.** get_batch
 - [ ] **3.** BigramLanguageModel
 - [ ] **4.** generate
 - [ ] **5.** train
