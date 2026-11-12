@@ -17,7 +17,7 @@ python scaffold.py
 - [x] **5.** train
 - [x] **6.** estimate_loss
 - [x] **7.** average_past
-- [ ] **8.** Head
+- [x] **8.** Head
 - [ ] **9.** MultiHeadAttention
 - [ ] **10.** FeedForward
 - [ ] **11.** LayerNorm

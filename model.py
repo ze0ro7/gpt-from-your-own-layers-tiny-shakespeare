@@ -243,8 +243,57 @@ def average_past(x):
 
     return out
 
-# Step 8 - Head (not yet solved)
-# TODO: implement
+# Step 8 - Head
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class Head(nn.Module):
+    def __init__(self, n_embd, head_size, block_size, dropout=0.0):
+        """key, query and value projections, a registered tril buffer, and dropout on the attention weights."""
+        super().__init__()
+
+        self.key = nn.Linear(n_embd, head_size, bias=False)
+        self.query = nn.Linear(n_embd, head_size, bias=False)
+        self.value = nn.Linear(n_embd, head_size, bias=False)
+
+        # Causal mask: prevents looking at future tokens
+        self.register_buffer(
+            "tril",
+            torch.tril(torch.ones(block_size, block_size))
+        )
+
+        # Dropout on attention weights
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x):
+        """(B, T, n_embd) -> (B, T, head_size): scaled, causally masked attention."""
+
+        B, T, C = x.shape
+
+        # Generate keys and queries
+        k = self.key(x)
+        q = self.query(x)
+
+        # Calculate scaled attention scores
+        scores = q @ k.transpose(-2, -1) * (k.shape[-1] ** -0.5)
+
+        # Apply causal mask
+        scores = scores.masked_fill(
+            self.tril[:T, :T] == 0,
+            float('-inf')
+        )
+
+        # Convert scores into attention weights
+        weights = F.softmax(scores, dim=-1)
+
+        # Apply dropout
+        weights = self.dropout(weights)
+
+        # Weighted aggregation of values
+        out = weights @ self.value(x)
+
+        return out
 
 # Step 9 - MultiHeadAttention (not yet solved)
 # TODO: implement
