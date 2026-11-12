@@ -217,8 +217,31 @@ def estimate_loss(model, splits, block_size, batch_size, eval_iters, generator=N
 
     return results
 
-# Step 7 - average_past (not yet solved)
-# TODO: implement
+# Step 7 - average_past
+import torch
+import torch.nn.functional as F
+
+def average_past(x):
+    """Position t of the output is the mean of x[:, :t + 1], computed with a masked softmax and a matrix multiply."""
+
+    B, T, C = x.shape
+
+    # Create a (T, T) weight matrix initialized with zeros
+    weights = torch.zeros(T, T, device=x.device)
+
+    # Mask positions above the diagonal with -inf
+    weights = weights.masked_fill(
+        torch.tril(torch.ones(T, T, device=x.device)) == 0,
+        float('-inf')
+    )
+
+    # Apply softmax to get averaging weights
+    weights = F.softmax(weights, dim=-1)
+
+    # Multiply weights with x using batched matrix multiplication
+    out = weights @ x
+
+    return out
 
 # Step 8 - Head (not yet solved)
 # TODO: implement

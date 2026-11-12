@@ -16,7 +16,7 @@ python scaffold.py
 - [x] **4.** generate
 - [x] **5.** train
 - [x] **6.** estimate_loss
-- [ ] **7.** average_past
+- [x] **7.** average_past
 - [ ] **8.** Head
 - [ ] **9.** MultiHeadAttention
 - [ ] **10.** FeedForward
