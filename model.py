@@ -111,8 +111,41 @@ class BigramLanguageModel(nn.Module):
 
         return logits, loss
 
-# Step 4 - generate (not yet solved)
-# TODO: implement
+# Step 4 - generate
+import torch
+import torch.nn.functional as F
+
+def generate(model, idx, max_new_tokens, block_size, generator=None):
+    """Append max_new_tokens sampled tokens to idx (B, T), cropping the context to block_size."""
+
+    # Disable gradient tracking during generation
+    with torch.no_grad():
+
+        for _ in range(max_new_tokens):
+
+            # Crop context to the last block_size tokens
+            idx_cond = idx[:, -block_size:]
+
+            # Get predictions from the model
+            logits, _ = model(idx_cond)
+
+            # Keep only the logits for the last time step
+            logits = logits[:, -1, :]
+
+            # Convert logits into probabilities
+            probs = F.softmax(logits, dim=-1)
+
+            # Sample the next token for each batch row
+            idx_next = torch.multinomial(
+                probs,
+                num_samples=1,
+                generator=generator
+            )
+
+            # Append the sampled token to the sequence
+            idx = torch.cat((idx, idx_next), dim=1)
+
+    return idx
 
 # Step 5 - train (not yet solved)
 # TODO: implement
